@@ -51,16 +51,19 @@ license that can be found in the LICENSE file.
           }
         },
         register: function(meta) {
-          // add to id map
-          this.map[meta.id] = meta;
-          // pre|append to id list
-          if (meta.shouldPrepend) {
-            this.list.unshift(meta);
-          } else {
-            this.list.push(meta);
+          if (meta.id) {
+            // add to id map
+            this.map[meta.id] = meta;
+            // pre|append to id list
+            if (meta.shouldPrepend) {
+              this.list.unshift(meta);
+            } else {
+              this.list.push(meta);
+            }
+            // add to path category collation
+            this.pathMap[this.category].list.push(meta);
+            this.invalidateCategories();
           }
-          // add to path category collation
-          this.pathMap[this.category].list.push(meta);
         },
         unregister: function(meta, id) {
           if (id) {
@@ -69,7 +72,14 @@ license that can be found in the LICENSE file.
             if (i >= 0) {
               this.list.splice(i, 1);
             }
+            this.invalidateCategories();
           }
+        },
+        invalidateCategories: function() {
+          this.validateJob = this.job(this.validateJob, function() {
+            // cause `categories` to experience an observable change
+            this.categories = this.categories.slice(0);
+          }, 200);
         },
         /*get list() {
           return this.list;
