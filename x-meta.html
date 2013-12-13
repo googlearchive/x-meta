@@ -23,6 +23,7 @@ license that can be found in the LICENSE file.
       ready: function() {
         if (this.id && this.id !== 'meta') {
           this.resolveImportPath();
+          this.resolveCategory();
           this.idChanged();
         }
         this.updateProperties();
@@ -32,7 +33,19 @@ license that can be found in the LICENSE file.
       },
       resolveImportPath: function() {
         this.importPath = (this.ownerDocument._URL || '').split('/').slice(0,-1).join('/');
-        this.category = this.importPath.split('/').slice(0, -1).join('/');
+      },
+      resolveCategory: function() {
+        this.category =  this.getAttribute('group');
+        if (!this.category) {
+          // TODO(sjmiles): hack, add metadata instead
+          if (this.id.indexOf('polymer-ui-') >= 0) {
+            this.category = 'Polymer UI';
+          } else if (this.id.indexOf('polymer-') >= 0) {
+            this.category = 'Polymer';
+          } else {
+            this.category = this.importPath.split('/').slice(0, -1).join('/');
+          }
+        }
         // add to path category collation as needed
         var pm = this.pathMap[this.category];
         if (!pm) {
