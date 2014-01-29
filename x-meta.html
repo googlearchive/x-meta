@@ -125,11 +125,11 @@ license that can be found in the LICENSE file.
           this.ensureMeta(n);
         }, this);
       },
-      loadImports: function() {
+      loadImports: function(callback) {
         this.importsLoaded = true;
         var t = this.querySelector('#imports');
         if (t) {
-          console.log('loading meta-imports');
+          //console.log('loading meta-imports');
           // FIXME(ffu): HTMLImports should provide an API to parse link directly
           HTMLImports.importer.load(t.content, function() {
             t.content.querySelectorAll('link').array().forEach(
@@ -138,7 +138,10 @@ license that can be found in the LICENSE file.
                 CustomElements.parser.parse(link.content);
               }
             );
+            callback && callback();
           });
+        } else if (callback) {
+          callback();
         }
       }
     });
