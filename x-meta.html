@@ -32,7 +32,7 @@ license that can be found in the LICENSE file.
         this.updateProperties();
       },
       resolveImportPath: function() {
-        this.importPath = (this.ownerDocument._URL || '').split('/').slice(0,-1).join('/');
+        this.importPath = (this.ownerDocument.baseURI || '').split('/').slice(0,-1).join('/');
       },
       resolveCategory: function() {
         this.category =  this.getAttribute('group');
