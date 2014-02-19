@@ -129,6 +129,8 @@ license that can be found in the LICENSE file.
         this.importsLoaded = true;
         var t = this.querySelector('#imports');
         if (t) {
+          // resolve urls in template.
+          Platform.urlResolver.resolveTemplate(t);
           Polymer.importElements(t.content, callback);
         } else if (callback) {
           callback();
