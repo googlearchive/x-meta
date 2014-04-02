@@ -5,7 +5,7 @@ license that can be found in the LICENSE file.
 -->
 <link rel="import" href="../polymer/polymer.html">
 
-<polymer-element name="x-meta" attributes="label isContainer isHidden list map categories shouldPrepend hideSubtree">
+<polymer-element name="x-meta" attributes="label isContainer isHidden list map categories shouldPrepend hideSubtree isEditor">
   <script>
     Polymer('x-meta', {
       // shared data
@@ -20,6 +20,7 @@ license that can be found in the LICENSE file.
       properties: null,
       shouldPrepend: false,
       hideSubtree: false,
+      isEditor: false,
       ready: function() {
         if (this.id && this.id !== 'meta') {
           this.resolveImportPath();
