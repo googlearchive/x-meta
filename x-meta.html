@@ -128,8 +128,10 @@ license that can be found in the LICENSE file.
       },
       getImports: function() {
         var t = this.querySelector('#imports');
-        // resolve urls in template.
-        Platform.urlResolver.resolveTemplate(t);
+        if (t) {
+          // resolve urls in template.
+          Platform.urlResolver.resolveTemplate(t);
+        }
         return t;
       },
       loadImports: function(callback) {
