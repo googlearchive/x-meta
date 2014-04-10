@@ -25,7 +25,7 @@ license that can be found in the LICENSE file.
         if (this.id && this.id !== 'meta') {
           this.resolveImportPath();
           this.resolveCategory();
-          this.idChanged();
+          this.register(this.id);
         }
         this.updateProperties();
       },
@@ -57,9 +57,9 @@ license that can be found in the LICENSE file.
           this.categories.push(pm);
         }
       },
-      idChanged: function(inOld) {
-        this.unregister(this, inOld);
-        if (this.id && this.id !== 'meta') {
+      register: function(id, old) {
+        this.unregister(this, old);
+        if (id && id !== 'meta') {
           this.register(this);
         }
       },
