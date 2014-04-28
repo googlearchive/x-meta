@@ -54,7 +54,13 @@ license that can be found in the LICENSE file.
             name: this.category.split('/').pop(),
             list: []
           }
+		  // add to category list
           this.categories.push(pm);
+		  // sort
+		  this.categories.sort(function(a, b) {
+			var aa = a.name.toLowerCase(), bb = b.name.toLowerCase();
+			return aa < bb ? -1 : (aa > bb ? 1 : 0);
+		  });
         }
       },
       register: function(meta) {
@@ -67,8 +73,15 @@ license that can be found in the LICENSE file.
           } else {
             this.list.push(meta);
           }
-          // add to path category collation
-          this.pathMap[this.category].list.push(meta);
+		  // locate category collation
+		  var list = this.pathMap[this.category].list;
+          // add collation
+		  list.push(meta);
+		  // sort
+		  list.sort(function(a, b) {
+			var aa = (a.label || a.id).toLowerCase(), bb = (b.label || b.id).toLowerCase();
+			return aa < bb ? -1 : (aa > bb ? 1 : 0);
+		  });
         }
       },
       unregister: function(meta, id) {
