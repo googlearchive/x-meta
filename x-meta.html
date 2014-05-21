@@ -148,7 +148,7 @@ license that can be found in the LICENSE file.
     },
     
     ensureMeta: function(node) {
-      node.meta = node.meta || this.byId(node.localName);
+      node.meta = node.meta || this.byId(node.getAttribute("is")) || this.byId(node.localName);
       Array.prototype.forEach.call(node.children, function(n) {
         this.ensureMeta(n);
       }, this);
