@@ -121,6 +121,10 @@ license that can be found in the LICENSE file.
         Array.prototype.forEach.call(p.attributes, function(a) {
           var v = a.value;
           v = v.indexOf(',') > 0 ? v.split(',') : v;
+          // handle boolean attribute
+          if (v === '') {
+            v = true;
+          }
           o[a.name] = v;
         });
         props[o.name] = o;
