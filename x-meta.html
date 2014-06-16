@@ -152,7 +152,11 @@ license that can be found in the LICENSE file.
     },
     
     ensureMeta: function(node) {
-      node._designMeta = node._designMeta || this.byId(node.getAttribute("is")) || this.byId(node.localName);
+      if (node.localName) {
+        node._designMeta = node._designMeta || 
+            this.byId(node.getAttribute("designMeta")) ||
+            this.byId(node.getAttribute("is")) || this.byId(node.localName);
+      }
       Array.prototype.forEach.call(node.children, function(n) {
         this.ensureMeta(n);
       }, this);
@@ -168,11 +172,16 @@ license that can be found in the LICENSE file.
     },
     
     loadImports: function(callback) {
-      this.importsLoaded = true;
-      var t = this.getImports();
-      if (t) {
-        Polymer.importElements(t.content.cloneNode(true), callback);
-      } else if (callback) {
+      var needsCallback = true;
+      if (!this.importsLoaded) {
+        this.importsLoaded = true;
+        var t = this.getImports();
+        if (t) {
+          Polymer.importElements(t.content.cloneNode(true), callback);
+          needsCallback = false;
+        }
+      }
+      if (needsCallback && callback) {
         callback();
       }
     }
