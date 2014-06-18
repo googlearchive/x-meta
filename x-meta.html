@@ -135,7 +135,13 @@ license that can be found in the LICENSE file.
     // TODO(sjmiles): functions below here don't necessarily belong
     // in this object
     get archetype() {
-      return this.querySelector('template');
+      if (!this._archetype) {
+        this._archetype = this.querySelector('template');
+        if (this._archetype) { 
+          Platform.urlResolver.resolveTemplate(this._archetype);
+        }
+      }  
+      return this._archetype;
     },
     
     createElement: function() {
