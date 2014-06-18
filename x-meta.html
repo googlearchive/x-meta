@@ -164,7 +164,8 @@ license that can be found in the LICENSE file.
     
     getImports: function() {
       var t = this.querySelector('#imports');
-      if (t) {
+      if (t && !t._resolved) {
+        t._resolved = true;
         // resolve urls in template.
         Platform.urlResolver.resolveTemplate(t);
       }
