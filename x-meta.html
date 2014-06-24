@@ -45,14 +45,15 @@ license that can be found in the LICENSE file.
     resolveCategory: function() {
       this.category =  this.getAttribute('group');
       if (!this.category) {
-        // TODO(sjmiles): hack, add metadata instead
-        if (this.id.indexOf('polymer-ui-') >= 0) {
-          this.category = 'Polymer UI';
-        } else if (this.id.indexOf('polymer-') >= 0) {
-          this.category = 'Polymer';
-        } else {
-          this.category = this.importPath.split('/').slice(0, -1).join('/');
-        }
+        this.category = 'Components';
+        // // TODO(sjmiles): hack, add metadata instead
+        // if (this.id.indexOf('polymer-ui-') >= 0) {
+        //   this.category = 'Polymer UI';
+        // } else if (this.id.indexOf('polymer-') >= 0) {
+        //   this.category = 'Polymer';
+        // } else {
+        //   this.category = this.importPath.split('/').slice(0, -1).join('/');
+        // }
       }
       // add to path category collation as needed
       var pm = this.pathMap[this.category];
