@@ -131,7 +131,7 @@ license that can be found in the LICENSE file.
       if (!this._archetype) {
         this._archetype = this.querySelector('template');
         if (this._archetype) { 
-          Platform.urlResolver.resolveTemplate(this._archetype);
+          Polymer.urlResolver.resolveTemplate(this._archetype);
         }
       }  
       return this._archetype;
@@ -166,7 +166,7 @@ license that can be found in the LICENSE file.
       if (t && !t._resolved) {
         t._resolved = true;
         // resolve urls in template.
-        Platform.urlResolver.resolveTemplate(t);
+        Polymer.urlResolver.resolveTemplate(t);
       }
       return t;
     },
